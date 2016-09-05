@@ -1,6 +1,6 @@
 #ifndef CONFIGS_H
 #define CONFIGS_H
 
-#define CMAKE_SOURCE_DIR                    "@CMAKE_SOURCE_DIR@"
+#define CMAKE_SOURCE_DIR                    "@CMAKE_SOURCE_DIR@/src/"
 
 #endif  // CONFIGS_H
