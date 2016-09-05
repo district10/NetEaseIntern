@@ -10,6 +10,8 @@
 #include <new>
 #include <cstdio>
 
+#include "Configs.h"
+
 using namespace std;
 
 void parsePlayground( int m, int n, vector<vector<int> > &pg);
@@ -41,7 +43,7 @@ void printPG( vector<vector<int> > &pg )
 
 int main()
 {
-    if (freopen("D:/tzx/OJ/file3.txt", "r", stdin) == NULL) {
+    if (freopen( CMAKE_SOURCE_DIR "/file3.txt", "r", stdin) == NULL) {
         perror("freopen() failed");
         return EXIT_FAILURE;
     }

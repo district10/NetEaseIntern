@@ -10,6 +10,8 @@
 #include <new>
 #include <cstdio>
 
+#include "Configs.h"
+
 using namespace std;
 
 bool hasDigit(  long long int n, int d ) {
@@ -45,7 +47,7 @@ bool divide7 ( long long int n ) {
 
 bool isMagical( int n )
 {
-    if ( !hasDigit(n, 2) && 
+    if ( !hasDigit(n, 2) &&
          !hasDigit(n, 3) &&
          !hasDigit(n, 5) ) { return false; }
 
@@ -57,7 +59,7 @@ bool isMagical( int n )
 
 int main()
 {
-    if (freopen("D:/tzx/OJ/file2.txt", "r", stdin) == NULL) {
+    if (freopen( CMAKE_SOURCE_DIR "file2.txt", "r", stdin) == NULL) {
         perror("freopen() failed");
         return EXIT_FAILURE;
     }

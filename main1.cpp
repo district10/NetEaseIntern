@@ -10,6 +10,8 @@
 #include <new>
 #include <cstdio>
 
+#include "Configs.h"
+
 using namespace std;
 
 void printMat( vector<vector<int> > &img );
@@ -49,7 +51,7 @@ void action7( vector<vector<int> > &img, int x0, int y0, int x1, int y1 );
 
 int main()
 {
-    if (freopen("D:/tzx/OJ/file1.txt", "r", stdin) == NULL) {
+    if (freopen( CMAKE_SOURCE_DIR "file1.txt", "r", stdin) == NULL) {
         perror("freopen() failed");
         return EXIT_FAILURE;
     }
