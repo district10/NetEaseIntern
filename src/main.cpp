@@ -13,7 +13,85 @@
 
 #include "Configs.h"
 
+int main()
+{
+    if (!freopen(CMAKE_SOURCE_DIR "/file.txt", "r", stdin)) {
+        perror("freopen() failed");
+        return EXIT_FAILURE;
+    }
+    int n;
+    cin >> n;
+    int a = 0, b = 1;
+    int dist = min(n, n-1);
+    for ( ;; ) {
+        b = a + b;
+        a = b - a;
+        if (abs(b-n) > dist) {
+            break;
+        }
+        dist = abs(b - n);
+    }
+    cout << dist << "\n";
+}
+
 using namespace std;
+
+/*
+int main()
+{
+    if (!freopen(CMAKE_SOURCE_DIR "/file.txt", "r", stdin)) {
+        perror("freopen() failed");
+        return EXIT_FAILURE;
+    }
+
+    int n;
+    bool bylength, bylex;
+    while (cin >> n && n) {
+        bylength = bylex = true;
+        string cur, prev;
+        cin >> prev;
+        while (--n) {
+            cin >> cur;
+            if (cur.length() < prev.length()) { bylength = false; }
+            if (cur < prev) { bylex = false; }
+            swap(prev, cur);
+        }
+        if (bylength && bylex) {
+            cout << "both\n";
+        }
+        else if (bylength) {
+            cout << "length\n";
+        }
+        else if (bylex) {
+            cout << "lexicographically\n";
+        }
+        else {
+            cout << "none\n";
+        }
+    }
+}
+
+int main()
+{
+    if (!freopen(CMAKE_SOURCE_DIR "/file.txt", "r", stdin)) {
+        perror("freopen() failed");
+        return EXIT_FAILURE;
+    }
+
+    int n;
+    while (cin >> n && n) {
+        vector<int> trap(n);
+        int tmp;
+        for (int i = 0; i < n; ++i) { scanf("%d", &trap[i]); }
+        for (int i = 0; i < n; ++i) { scanf("%d", &tmp); trap[i] += tmp; }
+        std::vector<int>::iterator dist;
+        dist = std::min_element(trap.begin(), trap.end());
+        if (dist != trap.end()) {
+            cout << (*dist - 2) << endl;
+        }
+    }
+    return 0;
+}
 
 template<class T, class Compare>
 std::pair<const T&, const T&> minmax( const T& a, const T& b, Compare comp )
@@ -121,3 +199,4 @@ int main()
         std::cout << std::string(s.begin(), end) << '\n';
     }
 }
+*/
