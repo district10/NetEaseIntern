@@ -8,6 +8,7 @@
 #include <cstdio>
 
 #include "Configs.h"
+
 using namespace std;
 
 const int RED = 0, GREEN = 1, BLUE = 2, YELLOW = 3, PURPLE = 4, BLANK = 5;

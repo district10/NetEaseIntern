@@ -6,6 +6,7 @@
 #include <set>
 #include <map>
 #include <cstdio>
+#include <climits>
 
 #include "Configs.h"
 using namespace std;

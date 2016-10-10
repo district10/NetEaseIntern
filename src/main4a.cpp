@@ -14,7 +14,7 @@
 using namespace std;
 
 struct Comp {
-    bool operator()(int a, int &b) const {
+    bool operator()(int a, int b)  const {
         int da = 1, db = 1;
         while (a / da >= 10) { da *= 10; }
         while (b / db >= 10) { db *= 10; }

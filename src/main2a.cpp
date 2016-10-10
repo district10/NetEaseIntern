@@ -5,6 +5,7 @@
 #include <iterator>
 #include <algorithm>
 #include <cstdio>
+#include <cstring>
 
 #define LOCAL 1
 // #define LOCAL 0
@@ -139,18 +140,18 @@ int main() {
         vector<string> cases(T);
         for (int i = 0; i < T; ++i) {
             cin >> cases[i];
-            cout << cases[i] << "\n"; 
+            cout << cases[i] << "\n";
             vector<int> nums;
             mi_proc(cases[i], nums);
-            cout << "hithithit\n"; 
+            cout << "hithithit\n";
             for (int i = 0; i < nums.size(); ++i) {
                 nums[i] = mi_realnum(nums[i]);
             }
-            cout << "hithithit\n"; 
+            cout << "hithithit\n";
             sort(nums.begin(), nums.end());
-            cout << "hithithit\n"; 
+            cout << "hithithit\n";
             copy(nums.begin(), nums.end(), ostream_iterator<int>(cout, "")); cout << "\n";
-            cout << "hithithit\n"; 
+            cout << "hithithit\n";
         }
     }
 }

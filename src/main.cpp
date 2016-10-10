@@ -13,6 +13,8 @@
 
 #include "Configs.h"
 
+using namespace std;
+
 int main()
 {
     if (!freopen(CMAKE_SOURCE_DIR "/file.txt", "r", stdin)) {
