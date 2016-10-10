@@ -1,43 +1,43 @@
+#include <algorithm>
+#include <cctype>
+#include <climits>
+#include <cmath>
+#include <cstddef>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <ctime>
 #include <iostream>
 #include <iterator>
-#include <algorithm>
-#include <vector>
 #include <limits>
-#include <cstddef>
-using namespace std;
+#include <map>
+#include <new>
+#include <numeric>
+#include <set>
+#include <sstream>
+#include <stack>
+#include <string>
+#include <vector>
+/*
+*/
 
+#define LOCAL 1
+// #define LOCAL 0
+
+#if LOCAL
+#include "Configs.h"
+#endif
+
+using namespace std;
 int main()
 {
-    /*  
-    if ( !freopen( CMAKE_SOURCE_DIR "/file7.txt", "r", stdin ) ) {
-        perror( "freopen() failed" );
-        return EXIT_FAILURE;
+#if LOCAL
+    if ( !freopen( CMAKE_SOURCE_DIR "/file8a.txt", "r", stdin ) ) {
+        return 0;
     }
-    */
+#endif
     int n;
     while( 1 == scanf("%d", &n) && n ) {
-        std::vector<int> h(n, 0);
-        for ( int i = 0; i < n; ++i ) {
-            scanf( "%d", &h[i] );
-        }
-        int allcnt = 0;
-        for( int i = 0; i < n; ++i ) {
-            double hi = std::numeric_limits<double>::min;
-            double lo = std::numeric_limits<double>::max;
-            int &cur = h[i];
-            int cnt = 0;
-            for( int j = 1; j < n; ++j ) {
-                int &hh = h[(i + j) % n];
-                if( (hh - cur) > hi * j ) {
-                    hi = (double)(hh - cur) / j;
-                    ++cnt;
-                } else if( (hh - cur) < lo * j ) { 
-                    lo = (double)(hh - cur) / j; 
-                    ++cnt;
-                }
-            }
-            allcnt += cnt;
-        }
-        printf( "%d\n", allcnt/2 );
+        printf("%d", n);
     }
 }

@@ -1,43 +1,58 @@
-#include <iostream>
-#include <iterator>
-#include <algorithm>
-#include <vector>
-#include <limits>
-#include <cstddef>
+#include <unordered_set>
+#include <cstdio>
+
+#define LOCAL 1
+// #define LOCAL 0
+
+#if LOCAL
+#include "Configs.h"
+#endif
+
 using namespace std;
+
+char b[100001];
+char f[100001];
+char p[26*26][3];
+unordered_set<int> s;
+
+int p2i(const char &a, const char &b) {
+    char aa = a < b ? a : b;
+    char bb = a < b ? b : a;
+    return (aa - 'a') * 100 + bb;
+}
+
+void dp( int N ) {
+    f[0] = 0;
+    f[1] = 0;
+    f[2] = s.count(p2i(b[0], b[1])) ? 2 : 0;
+    for (int i = 3; i <= N; ++i) {
+        if (s.count(p2i(b[i - 1], b[i - 2]))) {
+            int f1 = f[i - 1]; 
+            int f2 = f[i - 2]+2;
+            f[i] = f1 < f2 ? f1 : f2;
+        } else {
+            f[i] = f[i - 1];
+        }
+    }
+}
 
 int main()
 {
-    /*  
-    if ( !freopen( CMAKE_SOURCE_DIR "/file7.txt", "r", stdin ) ) {
-        perror( "freopen() failed" );
-        return EXIT_FAILURE;
+#if LOCAL
+    if ( !freopen( CMAKE_SOURCE_DIR "/file8b.txt", "r", stdin ) ) {
+        return 0;
     }
-    */
-    int n;
-    while( 1 == scanf("%d", &n) && n ) {
-        std::vector<int> h(n, 0);
-        for ( int i = 0; i < n; ++i ) {
-            scanf( "%d", &h[i] );
+#endif
+    int N, M;
+    while( 1 == scanf("%d", &N) && N ) {
+        scanf("%s", b);
+        scanf("%d", &M);
+        s.clear();
+        for (int i = 0; i < M; ++i) {
+            scanf("%s", p[i]);
+            s.insert(p2i(p[i][0], p[i][1]));
         }
-        int allcnt = 0;
-        for( int i = 0; i < n; ++i ) {
-            double hi = std::numeric_limits<double>::min;
-            double lo = std::numeric_limits<double>::max;
-            int &cur = h[i];
-            int cnt = 0;
-            for( int j = 1; j < n; ++j ) {
-                int &hh = h[(i + j) % n];
-                if( (hh - cur) > hi * j ) {
-                    hi = (double)(hh - cur) / j;
-                    ++cnt;
-                } else if( (hh - cur) < lo * j ) { 
-                    lo = (double)(hh - cur) / j; 
-                    ++cnt;
-                }
-            }
-            allcnt += cnt;
-        }
-        printf( "%d\n", allcnt/2 );
+        dp(N);
+        printf("%d\n", f[N]);
     }
 }

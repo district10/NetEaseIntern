@@ -1,43 +1,48 @@
-#include <iostream>
-#include <iterator>
-#include <algorithm>
-#include <vector>
-#include <limits>
-#include <cstddef>
-using namespace std;
+#include <cstdio>
+
+#define LOCAL 1
+// #define LOCAL 0
+
+#if LOCAL
+#include "Configs.h"
+#endif
+
+#define max(a, b) ((a)>(b)?(a):(b))
+
+int A[1000000];
+int f[1000000];
+
+void dp(int n) {
+    f[0] = 0;
+    f[1] = 0;
+    f[2] = (A[0] + A[1]) & 1 ? 2 : 0;
+    for (int i = 3; i <= n; ++i) {
+        if ((A[i - 1] + A[i - 2]) & 1) {
+            int f1 = f[i - 1];
+            int f2 = f[i - 2] + 2;
+            int f3 = f[i - 3] + ((A[i - 2] + A[i - 3]) & 1 ? 2 : 0);
+            if (f1 > f2) { f2 = f3; }
+            if (f1 < f2) { f1 = f2; }
+            f[i] = f1;
+        } else {
+            f[i] = f[i - 1];
+        }
+    }
+}
 
 int main()
 {
-    /*  
-    if ( !freopen( CMAKE_SOURCE_DIR "/file7.txt", "r", stdin ) ) {
-        perror( "freopen() failed" );
-        return EXIT_FAILURE;
+#if LOCAL
+    if ( !freopen( CMAKE_SOURCE_DIR "/file8a.txt", "r", stdin ) ) {
+        return 0;
     }
-    */
-    int n;
-    while( 1 == scanf("%d", &n) && n ) {
-        std::vector<int> h(n, 0);
-        for ( int i = 0; i < n; ++i ) {
-            scanf( "%d", &h[i] );
+#endif
+    int N;
+    while( 1 == scanf("%d", &N) && N ) {
+        for (int i = 0; i < N; ++i) {
+            scanf("%d", &A[i]);
         }
-        int allcnt = 0;
-        for( int i = 0; i < n; ++i ) {
-            double hi = std::numeric_limits<double>::min;
-            double lo = std::numeric_limits<double>::max;
-            int &cur = h[i];
-            int cnt = 0;
-            for( int j = 1; j < n; ++j ) {
-                int &hh = h[(i + j) % n];
-                if( (hh - cur) > hi * j ) {
-                    hi = (double)(hh - cur) / j;
-                    ++cnt;
-                } else if( (hh - cur) < lo * j ) { 
-                    lo = (double)(hh - cur) / j; 
-                    ++cnt;
-                }
-            }
-            allcnt += cnt;
-        }
-        printf( "%d\n", allcnt/2 );
+        dp(N);
+        printf("%d\n", N-f[N]);
     }
 }

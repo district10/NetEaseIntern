@@ -1,12 +1,6 @@
-5 3
-4 2 1 10 5
-apple
-orange
-mango
-6 5
-3 5 1 6 8 1
-peach
-grapefruit
-banana
-orange
-orange
+5
+abcde
+3
+ac
+ab
+de

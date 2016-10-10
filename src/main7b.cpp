@@ -1,43 +1,37 @@
-#include <iostream>
-#include <iterator>
-#include <algorithm>
-#include <vector>
-#include <limits>
-#include <cstddef>
+#include <cstdio>
+
 using namespace std;
+
+#include "Configs.h"
 
 int main()
 {
-    /*  
-    if ( !freopen( CMAKE_SOURCE_DIR "/file7.txt", "r", stdin ) ) {
-        perror( "freopen() failed" );
-        return EXIT_FAILURE;
+    if ( !freopen( CMAKE_SOURCE_DIR "/file7b.txt", "r", stdin ) ) {
+        return 0;
     }
-    */
-    int n;
-    while( 1 == scanf("%d", &n) && n ) {
-        std::vector<int> h(n, 0);
-        for ( int i = 0; i < n; ++i ) {
-            scanf( "%d", &h[i] );
-        }
-        int allcnt = 0;
-        for( int i = 0; i < n; ++i ) {
-            double hi = std::numeric_limits<double>::min;
-            double lo = std::numeric_limits<double>::max;
-            int &cur = h[i];
-            int cnt = 0;
-            for( int j = 1; j < n; ++j ) {
-                int &hh = h[(i + j) % n];
-                if( (hh - cur) > hi * j ) {
-                    hi = (double)(hh - cur) / j;
-                    ++cnt;
-                } else if( (hh - cur) < lo * j ) { 
-                    lo = (double)(hh - cur) / j; 
-                    ++cnt;
+    int N, A, B;
+    char buf[100001];
+    while( 3 == scanf("%d %d %d", &N, &A, &B ) ) {
+        printf("\n\n");
+        scanf("%s", buf);
+        int no = 0;
+        int passed = 0;
+        for (int i = 0; i < N; ++i) {
+            bool pass = false;
+            if (buf[i] == 'a') { // jap
+                if (passed < A + B) { pass = true; ++passed; }
+            } else if (buf[i] == 'b') { // overseas
+                if (passed < A+B && ++no <= B) {
+                    pass = true;
+                    ++passed;
                 }
             }
-            allcnt += cnt;
+            if (pass) {
+                printf("Yes\n");
+            } else {
+                printf("No\n");
+            }
         }
-        printf( "%d\n", allcnt/2 );
     }
+    return 0;
 }
