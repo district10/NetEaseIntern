@@ -176,7 +176,7 @@ int main()
                 pic[ep2.x][ep2.y] = END;
                 Point &m = mid;
                 Point &c = center;
-                if( abs(m.x-c.x)+abs(m.y-c.y) < ((r-l)+(d-u)) / 4 ) {
+                if( abs(m.x-c.x)+abs(m.y-c.y) < ((r-l)+(d-u)) / 5 ) { // '4' not work.
                     ++countS;
                 } else {
                     ++countM;
@@ -184,7 +184,7 @@ int main()
             }
         }
         for( int i = 0; i < H; ++i ) {
-            fprintf( stderr, "%s\n", pic[i] );
+            // fprintf( stderr, "%s\n", pic[i] );
         }
         printf("%d %d\n", countM, countS);
     }
