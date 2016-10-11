@@ -4,6 +4,8 @@ I suck.
 
 ---
 
+[我来贴一个第四题的思路 - hihoCoder](https://hihocoder.com/discuss/question/3970)
+
 Count 'M' and 'S',
 
 input:
