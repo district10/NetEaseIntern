@@ -96,8 +96,8 @@ using namespace std;
 
 int H, W;
 char pic[MAXN][MAXN];
-const int dx[] = { 1, 1, 1, -1, -1, -1, 0, 0 };
-const int dy[] = { 1,-1, 0,  1, -1,  0, 1,-1 };
+const int dx[] = { 1,-1, 0, 0, 1, 1,-1,-1};
+const int dy[] = { 0, 0, 1,-1, 1,-1, 1,-1};
 
 struct Point {
     int x, y;
@@ -118,19 +118,19 @@ namespace std {
     };
 }
 
-void coloring( Point sp, Point &hp, int &u, int &d, int &l, int &r ) {
+void coloring( const Point &sp, int &u, int &d, int &l, int &r ) {
     if ( !sp.valid() || pic[sp.x][sp.y] != DOT ) { return; }
     pic[sp.x][sp.y] = CLR;
-    if( sp.x < u ) { hp = sp; }
     u = min(u, sp.x); d = max(d, sp.x);
     l = min(l, sp.y); r = max(r, sp.y);
     for( int i = 0; i < sizeof(dx)/sizeof(dx[0]); ++i ) {
-        coloring( Point(sp.x+dx[i],sp.y+dy[i]), hp, u, d, l, r );
+        coloring( Point(sp.x+dx[i],sp.y+dy[i]), u, d, l, r );
     }
 }
 
 void reachingout( Point sp, Point &ep ) {
     unordered_set<Point> s;
+    s.insert(sp);
     queue<Point> q;
     q.push( sp );
     while( !q.empty() ) {
@@ -164,18 +164,16 @@ int main()
             for( int y = 0; y < W; ++y ) {
                 if( pic[x][y] != DOT ) { continue; }
                 int u = H, d = 0, l = W, r = 0;
-                Point sp( x, y ), hp( x, y );
-                coloring( sp, hp, u, d, l, r );
-                Point center( (u+d)/2, (l+r)/2 );
-                Point ep1, ep2, mid;
-                reachingout( hp,  ep1 );
+                Point sp( x, y ), ep1, ep2;
+                coloring( sp, u, d, l, r );
+                reachingout( sp,  ep1 );
                 reachingout( ep1, ep2 );
-                mid = Point( (ep1.x+ep2.x)/2, (ep1.y+ep2.y)/2 );
-                pic[mid.x][mid.y] = MID;
                 pic[ep1.x][ep1.y] = BEG;
                 pic[ep2.x][ep2.y] = END;
-                Point &m = mid;
-                Point &c = center;
+                Point mid( (ep1.x+ep2.x)/2, (ep1.y+ep2.y)/2 );
+                Point center(      (u+d)/2,         (l+r)/2 );
+                Point &m = mid, &c = center;
+                pic[m.x][m.y] = MID;
                 if( abs(m.x-c.x)+abs(m.y-c.y) < ((r-l)+(d-u)) / 5 ) { // '4' not work.
                     ++countS;
                 } else {
@@ -184,7 +182,7 @@ int main()
             }
         }
         for( int i = 0; i < H; ++i ) {
-            // fprintf( stderr, "%s\n", pic[i] );
+            fprintf( stderr, "%s\n", pic[i] );
         }
         printf("%d %d\n", countM, countS);
     }
